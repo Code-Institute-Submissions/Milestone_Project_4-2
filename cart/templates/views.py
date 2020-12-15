@@ -10,17 +10,17 @@ def view_cart(request):
 def add_to_cart(request, item_id):
 
     poster = get_object_or_404(Poster, pk=item_id)
-    quantity = int(request.POST.get('quantity'))
+    stock = int(request.POST.get('stock'))
     redirect_url = request.POST.get('redirect_url')
     cart = request.session.get('cart', {})
 
     if item_id in list(cart.keys()):
-        cart[item_id] += quantity
+        cart[item_id] += stock
         messages.success(request,
                              (f'Updated {poster.name} '
-                              f'quantity to {cart[item_id]}'))
+                              f'stock to {cart[item_id]}'))
     else:
-        cart[item_id] = quantity
+        cart[item_id] = stock
         messages.success(request, f'Added {poster.name} to your cart')
 
     request.session['cart'] = cart
@@ -29,14 +29,14 @@ def add_to_cart(request, item_id):
 def adjust_cart(request, item_id):
 
     poster = get_object_or_404(Poster, pk=item_id)
-    quantity = int(request.POST.get('quantity'))
+    stock = int(request.POST.get('stock'))
     cart = request.session.get('cart', {})
 
-    if quantity > 0:
-        cart[item_id] = quantity
+    if stock > 0:
+        cart[item_id] = stock
         messages.success(request,
                              (f'Updated {poster.name} '
-                              f'quantity to {cart[item_id]}'))
+                              f'stock to {cart[item_id]}'))
     else:
         bag.pop(item_id)
         messages.success(request,
