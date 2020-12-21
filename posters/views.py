@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
-from .models import Poster, Category
+from .models import Poster, Genre
 from .forms import PosterForm
 from django.contrib.auth.decorators import login_required
 from django.db.models.functions import Lower
@@ -10,7 +10,7 @@ def all_posters(request):
 
     posters = Poster.objects.all()
     query = None
-    categories = ['test1', 'test2', 'test3', 'test4']
+    genres = ['test1', 'test2', 'test3', 'test4']
     sort = None
     direction = None
 
@@ -21,18 +21,18 @@ def all_posters(request):
             if sortkey == 'name':
                 sortkey = 'lower_name'
                 posters = posters.annotate(lower_name=Lower('name'))
-            if sortkey == 'category':
-                sortkey = 'category__name'
+            if sortkey == 'genre':
+                sortkey = 'genre__name'
             if 'direction' in request.GET:
                 direction = request.GET['direction']
                 if direction == 'desc':
                     sortkey = f'-{sortkey}'
             posters = posters.order_by(sortkey)
 
-        if 'category' in request.GET:
-            categories = request.GET['category'].split(',')
-            postes = posters.filter(category__name__in=categories)
-            categories = Category.objects.filter(name__in=categories)
+        if 'genre' in request.GET:
+            genres = request.GET['genre'].split(',')
+            posters = posters.filter(genre__name__in=genres)
+            genres = Genre.objects.filter(name__in=genres)
 
 
         if 'q' in request.GET:
@@ -41,7 +41,7 @@ def all_posters(request):
                 messages.error(request, "Please enter a keyword or ISBN to search.")
                 return redirect(reverse('posters'))
 
-            queries = Q(name__icontains=query) | Q(description__icontains=query) | Q(description_full__icontains=query) | Q(isbn10__icontains=query) | Q(isbn13__icontains=query) | Q(category__friendly_name__icontains=query)
+            queries = Q(name__icontains=query) | Q(description__icontains=query) | Q(description_full__icontains=query) | Q(isbn10__icontains=query) | Q(isbn13__icontains=query) | Q(genre__friendly_name__icontains=query)
 
             posters = posters.filter(queries)
 
@@ -50,7 +50,7 @@ def all_posters(request):
     context = {
         'posters': posters,
         'search_term': query,
-        'current_categories': categories,
+        'current_genres': genres,
         'current_sorting': current_sorting,
     }
 
