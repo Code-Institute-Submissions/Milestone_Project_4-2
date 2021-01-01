@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block page_header %}
+    <div class="container-fluid header-container">
+    </div>
+
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row mt-5">
+        <div class="col-12 col-md-5 mt-5 text-center py-2">
+            {% if poster.image %}
+                <img class="img-fluid" src="{{ poster.image.url }}" alt="{{ poster.name }}">
+            {% else %}
+                <img class=" img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ poster.name }}">
+            {% endif %}
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="col-12 px-5 ">
+            <h4>About</h4>
+            <p class="font-weight-bold">{{poster.description}}</p>
+            <p>
+                <a id="fulldescription_switch" data-toggle="collapse" href="#fulldescrition" role="button" aria-expanded="false" aria-controls="fulldescrition">Read More ...</a>
+            </p>
+            <div class="collapse" id="fulldescrition">
+                <p>{{poster.description_full}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 px-5 ">
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Details
+                        </button>
+                    </h2>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <p>Title: {{poster.name}}</p>           
+                        <p>Genre: {{poster.category.get_friendly_name}}</p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_postload_js %}
+<script type="text/javascript" src="{% static 'posters/js/scroll_to_top.js' %}"></script>
+<script type="text/javascript" src="{% static 'posters/js/quantity_selector.js' %}"></script>
+{% endblock %}
