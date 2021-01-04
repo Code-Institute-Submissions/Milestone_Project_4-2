@@ -26,7 +26,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['usmaanmujtaba-milestone4.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['mikevez14-milestone4.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'payment',
     'crispy_forms',
     'profiles',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -88,7 +89,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Milestone4.wsgi.application'
+WSGI_APPLICATION = 'milestone4.wsgi.application'
 
 
 # Database
