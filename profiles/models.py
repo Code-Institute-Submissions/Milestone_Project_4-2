@@ -13,8 +13,7 @@ class UserProfile(models.Model):
     county = models.CharField(max_length=80, null=True, blank=True)
     zip_or_post = models.CharField(max_length=20, null=True, blank=True)
     country = CountryField(blank_label='Country *', null=True, blank=True)
-    points = models.IntegerField(null=True, blank=True, default=0)
-    total_savings = models.IntegerField(null=True, blank=True, default=0)
+
 
     def __str__(self):
         return self.user.username
