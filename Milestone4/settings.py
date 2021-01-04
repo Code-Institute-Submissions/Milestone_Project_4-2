@@ -21,13 +21,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-'''SECRET_KEY = os.getenv('SECRET_KEY')'''
-SECRET_KEY = '^6pik&7y@z+9nbi*98wig3or4#%3hv4ldw%jq=v!f9q1yqyagy'
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['poster-django-app.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = [os.environ.get('HEROKU_HOSTNAME')]
 
 
 # Application definition
@@ -99,7 +99,7 @@ WSGI_APPLICATION = 'milestone4.wsgi.application'
 if 'DATABASE_URL' in os.environ:
 
     DATABASES = { 
-        'default': dj_database_url.parse(os.getenv('postgres://vfhztznqbrreqo:b2746840392a5c2adb4dc6e7f19b07a5c8096de7365d27e7b60c8cccdedac8ef@ec2-79-125-86-58.eu-west-1.compute.amazonaws.com:5432/d4dq173n2iqtjr'))
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
         }
 else:
     DATABASES = {
