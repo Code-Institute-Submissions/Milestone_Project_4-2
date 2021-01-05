@@ -4,39 +4,42 @@ from posters.models import Poster
 
 
 def view_cart(request):
+    """ A view to return the shopping cart """
 
     return render(request, 'cart/cart.html')
 
 def add_to_cart(request, item_id):
+    """ A view to allow you to add to cart """
 
     poster = get_object_or_404(Poster, pk=item_id)
-    stock = int(request.POST.get('stock'))
+    quantity = int(request.POST.get('quantity'))
     redirect_url = request.POST.get('redirect_url')
     cart = request.session.get('cart', {})
 
     if item_id in list(cart.keys()):
-        cart[item_id] += stock
+        cart[item_id] += quantity
         messages.success(request,
                              (f'Updated {poster.name} '
-                              f'stock to {cart[item_id]}'))
+                              f'quantity to {cart[item_id]}'))
     else:
-        cart[item_id] = stock
+        cart[item_id] = quantity
         messages.success(request, f'Added {poster.name} to your cart')
 
     request.session['cart'] = cart
     return redirect(redirect_url)
     
 def adjust_cart(request, item_id):
+    """ A view to edit the quantity in the cart """
 
     poster = get_object_or_404(Poster, pk=item_id)
-    stock = int(request.POST.get('stock'))
+    quantity = int(request.POST.get('quantity'))
     cart = request.session.get('cart', {})
 
-    if stock > 0:
-        cart[item_id] = stock
+    if quantity > 0:
+        cart[item_id] = quantity
         messages.success(request,
                              (f'Updated {poster.name} '
-                              f'stock to {cart[item_id]}'))
+                              f'quantity to {cart[item_id]}'))
     else:
         bag.pop(item_id)
         messages.success(request,
@@ -46,7 +49,7 @@ def adjust_cart(request, item_id):
     return redirect(reverse('view_cart'))
 
 def remove_from_cart(request, item_id):
- 
+    """ A view to delete from the cart """
     try:
         poster = get_object_or_404(Poster, pk=item_id)
         cart = request.session.get('cart', {})
