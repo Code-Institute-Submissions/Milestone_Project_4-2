@@ -1,5 +1,5 @@
 from django import forms
-from .models import Poster, Genre
+from .models import Poster, Category
 
 
 class PosterForm(forms.ModelForm):
@@ -10,9 +10,9 @@ class PosterForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        genres = Genre.objects.all()
-        friendly_names = [(g.id, g.get_friendly_name()) for g in genres]
+        category = Category.objects.all()
+        friendly_names = [(c.id, c.get_friendly_name()) for c in categories]
 
-        self.fields['genre'].choices = friendly_names
+        self.fields['category'].choices = friendly_names
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'border-black rounded-0'

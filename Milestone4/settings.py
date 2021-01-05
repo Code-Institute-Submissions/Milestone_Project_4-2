@@ -90,7 +90,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'milestone4.wsgi.application'
+WSGI_APPLICATION = 'Milestone4.wsgi.application'
 
 
 # Database

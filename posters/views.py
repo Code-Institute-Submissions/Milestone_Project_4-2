@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
-from .models import Poster, Genre
+from .models import Poster, Category
 from .forms import PosterForm
 from django.contrib.auth.decorators import login_required
 from django.db.models.functions import Lower
@@ -56,7 +56,7 @@ def all_posters(request):
 
     return render(request, 'posters/posters.html', context)
 
-def poster_detail(request, poster_id):
+def poster_info(request, poster_id):
 
     poster = get_object_or_404(Poster, pk=poster_id)
 
@@ -70,7 +70,7 @@ def poster_detail(request, poster_id):
         'points': points,
     }
 
-    return render(request, 'posters/poster_detail.html', context)
+    return render(request, 'poster_info.html', context)
 
 @login_required
 def add_poster(request):
@@ -110,7 +110,7 @@ def edit_poster(request, poster_id):
         if form.is_valid():
             form.save()
             messages.success(request, 'Updated poster!')
-            return redirect(reverse('poster_detail', args=[poster.id]))
+            return redirect(reverse('poster_info', args=[poster.id]))
         else:
             messages.error(request, 'Failed to update poster')
     else:

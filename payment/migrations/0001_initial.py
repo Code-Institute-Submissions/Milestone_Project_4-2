@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('posters', '0004_auto_20210104_1320'),
+        ('posters', '0004_auto_20210105_1343'),
     ]
 
     operations = [
