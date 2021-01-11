@@ -1,16 +1,17 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+from django.db.models.functions import Lower
 from .models import Poster, Category
 from .forms import PosterForm
-from django.contrib.auth.decorators import login_required
-from django.db.models.functions import Lower
-from django.db.models import Q
 
 def all_posters(request):
+    """ A view to return all posters """
 
     posters = Poster.objects.all()
     query = None
-    genres = ['test1', 'test2', 'test3', 'test4']
+    categories = ['classic', 'sci-fi', 'romance', 'action']
     sort = None
     direction = None
 
@@ -21,27 +22,27 @@ def all_posters(request):
             if sortkey == 'name':
                 sortkey = 'lower_name'
                 posters = posters.annotate(lower_name=Lower('name'))
-            if sortkey == 'genre':
-                sortkey = 'genre__name'
+            if sortkey == 'category':
+                sortkey = 'category__name'
             if 'direction' in request.GET:
                 direction = request.GET['direction']
                 if direction == 'desc':
                     sortkey = f'-{sortkey}'
             posters = posters.order_by(sortkey)
 
-        if 'genre' in request.GET:
-            genres = request.GET['genre'].split(',')
-            posters = posters.filter(genre__name__in=genres)
-            genres = Genre.objects.filter(name__in=genres)
+        if 'category' in request.GET:
+            categories = request.GET['category'].split(',')
+            posters = posters.filter(category__name__in=categories)
+            categories = Category.objects.filter(name__in=categories)
 
 
         if 'q' in request.GET:
             query = request.GET['q']
             if not query:
-                messages.error(request, "Please enter a keyword or ISBN to search.")
+                messages.error(request, "Please enter a keyword or movie to search.")
                 return redirect(reverse('posters'))
 
-            queries = Q(name__icontains=query) | Q(description__icontains=query) | Q(description_full__icontains=query) | Q(isbn10__icontains=query) | Q(isbn13__icontains=query) | Q(genre__friendly_name__icontains=query)
+            queries = Q(name__icontains=query) | Q(description__icontains=query) | Q(description_full__icontains=query) | Q(isbn10__icontains=query) | Q(isbn13__icontains=query) | Q(category__friendly_name__icontains=query)
 
             posters = posters.filter(queries)
 
@@ -50,13 +51,14 @@ def all_posters(request):
     context = {
         'posters': posters,
         'search_term': query,
-        'current_genres': genres,
+        'current_categories': categories,
         'current_sorting': current_sorting,
     }
 
     return render(request, 'posters/posters.html', context)
 
-def poster_info(request, poster_id):
+def poster_detail(request, poster_id):
+    """ A view to return the details of the selected poster """
 
     poster = get_object_or_404(Poster, pk=poster_id)
 
@@ -70,11 +72,12 @@ def poster_info(request, poster_id):
         'points': points,
     }
 
-    return render(request, 'poster_info.html', context)
+    return render(request, 'posters/poster_detail.html', context)
 
 @login_required
 def add_poster(request):
-  
+    """ Add a poster to the store """
+
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
@@ -83,10 +86,10 @@ def add_poster(request):
         form = PosterForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Added poster!')
+            messages.success(request, 'Successfully added poster!')
             return redirect(reverse('add_poster'))
         else:
-            messages.error(request, 'Failed to add poster')
+            messages.error(request, 'Failed to add product. Please ensure the form is valid.')
     else:
         form = PosterForm()
         
@@ -99,9 +102,10 @@ def add_poster(request):
 
 @login_required
 def edit_poster(request, poster_id):
+    """ Edit a poster in the store """
 
     if not request.user.is_superuser:
-        messages.error(request, 'Can not do that, sorry')
+        messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
 
     poster = get_object_or_404(Poster, pk=poster_id)
@@ -109,10 +113,10 @@ def edit_poster(request, poster_id):
         form = PosterForm(request.POST, request.FILES, instance=poster)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Updated poster!')
-            return redirect(reverse('poster_info', args=[poster.id]))
+            messages.success(request, 'Successfully updated poster!')
+            return redirect(reverse('poster_detail', args=[poster.id]))
         else:
-            messages.error(request, 'Failed to update poster')
+            messages.error(request, 'Failed to update poster. Please ensure the form is valid.')
     else:
         form = PosterForm(instance=poster)
         messages.info(request, f'You are editing {poster.name}')
@@ -127,6 +131,7 @@ def edit_poster(request, poster_id):
 
 @login_required
 def delete_poster(request, poster_id):
+    """ Delete a poster from the store """
 
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only store owners can do that.')
