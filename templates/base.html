@@ -66,11 +66,10 @@
                             </div>
                         </a>
                         <div class="dropdown-menu border-0" aria-labelledby="poster-options">
-                            <a href="{% url 'posters' %}?category=test1, test2" class="dropdown-item">All Posters</a>
-                            <a href="{% url 'posters' %}?category=test1" class="dropdown-item">Action</a>
-                            <a href="{% url 'posters' %}?category=test2" class="dropdown-item">Romance</a>
-                            <a href="{% url 'posters' %}?category=test1" class="dropdown-item">.......</a>
-                            <a href="{% url 'posters' %}?category=test2" class="dropdown-item">.......</a>
+                            <a href="{% url 'posters' %}?category=action, romance, horror" class="dropdown-item">All Posters</a>
+                            <a href="{% url 'posters' %}?category=action" class="dropdown-item">Action</a>
+                            <a href="{% url 'posters' %}?category=romance" class="dropdown-item">Romance</a>
+                            <a href="{% url 'posters' %}?category=horror" class="dropdown-item">Horror</a>
                         </div>
                     </li>
 
