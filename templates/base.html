@@ -72,14 +72,6 @@
                             <a href="{% url 'posters' %}?category=horror" class="dropdown-item">Horror</a>
                         </div>
                     </li>
-                    <li class="list-inline-item">
-                        <a class="text-black nav-link " href="{% url 'blog' %}">
-                            <div class="text-center">
-                                <div><i class="fas fa-scroll fa-lg p-3 border border-dark rounded-circle"></i></div>
-                                <p class="my-0">Blog</p>
-                            </div>
-                        </a>
-                    </li>
                     <li class="list-inline-item dropdown">
                         <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="text-center">
@@ -108,7 +100,6 @@
                             </a>
                             <div class="dropdown-menu border-0" aria-labelledby="management-options">
                                 <a href="{% url 'add_book' %}" class="dropdown-item">Add Poster</a>
-                                <a href="{% url 'add_book' %}" class="dropdown-item">Add Blog</a>
                                 <a href="{% url 'admin:index' %}" class="dropdown-item">Admin</a>
                             </div>
                         </li>
@@ -199,7 +190,6 @@
                         </a>
                         <div class="dropdown-menu border-0" aria-labelledby="management-options">
                             <a href="{% url 'add_book' %}" class="dropdown-item">Add Poster</a>
-                            <a href="{% url 'add_book' %}" class="dropdown-item">Add Blog</a>
                             <a href="{% url 'admin:index' %}" class="dropdown-item">Admin</a>
                         </div>
                     </li>
