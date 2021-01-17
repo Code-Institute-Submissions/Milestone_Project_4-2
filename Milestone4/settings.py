@@ -176,7 +176,7 @@ ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL= '/'
 
-FREE_SHIP_MIN = 75
+FREE_SHIP_MIN = 25
 SHIP_PERCENT = 10
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'

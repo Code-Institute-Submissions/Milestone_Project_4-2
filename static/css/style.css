@@ -1,6 +1,6 @@
 .allauth-form-content p {
     margin-top: 1.5rem; /* mt-4 */
-    color: #6c757d; /* text-secondary */
+    color: #528fb3; /* text-secondary */
 }
 
 .allauth-form-content input {
@@ -47,5 +47,5 @@
 }
 
 .allauth-form-content a {
-	color: #17a2b8; /* text-info */
+	color: #b85717; /* text-info */
 }

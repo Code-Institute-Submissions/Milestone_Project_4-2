@@ -39,7 +39,7 @@
         <div id="topnav" class="row bg-white pt-lg-2 d-none d-lg-flex">
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
                 <a href="{% url 'home' %}" class="nav-link main-logo-link">
-                    <h2 class="logo-font text-black my-0">Every<strong>Movie Poster</strong></h2>
+                    <h2 class="logo-font text-bold my-0">Every Movie Poster</h2>
                 </a>
             </div>
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
@@ -198,8 +198,8 @@
             </nav>
         </div>
         <div id="delivery-banner" class="row text-center">
-            <div class="col bg-dark text-white">
-                <h5 class="my-1 p-1">Free Shipping Worldwide! (Minimum Order: ${{ free_ship_min }})</h5>                
+            <div class="col bg-secondary text-white">
+                <h5 class="my-1 p-1">Free shipping when you order over €{{ free_ship_min }}!!</h5>                
             </div>            
         </div>
     </header>
@@ -234,7 +234,7 @@
     {% endblock %}
     <div id="footer-offset"></div>
     <footer class="container=fluid fixed-bottom">
-        <div id="cart-footer" class="row bg-primary text-white py-2 d-none d-lg-flex">
+        <div id="cart-footer" class="row bg-secondary text-white py-2 d-none d-lg-flex">
             <div class="col-lg-2 my-auto text-center">
                 <h4 class="my-0"><a class="text-white text-decoration-none" href="{% url 'view_cart' %}"><i class="fas fa-shopping-cart fa-lg px-2"></i>Cart</a></h4>
             </div>
@@ -266,12 +266,12 @@
                     </h4>
             </div>
             <div class="col-lg-4 my-auto py-1 py-0 text-center">
-                <a href="{% url 'payment' %}" class="btn btn-primary btn-lg btn-block text-center text-uppercase font-weight-bold">Checkout Now</a>
+                <a href="{% url 'payment' %}" class="btn btn-primary bg-info btn-sm btn-block text-center text-uppercase font-weight-bold">Checkout Now</a>
             </div>
             
             
         </div>
-        <div id="bottom-footer" class="row bg-white border-top pt-lg-2 d-none d-lg-flex">
+        <div id="bottom-footer" class="row bg-warning border-top pt-lg-2 d-none d-lg-flex">
             
             <div class="col-lg-4 my-auto text-left">
                 <p><strong class="pl-3">Let's Get Social:</strong>
@@ -286,10 +286,7 @@
                 <p>&copy; Every Movie Poster - All Rights Reserved</p>
             </div>
             <div class="col-lg-4 my-auto text-right">
-                <p class="pr-3">
-                    <a href="#" class="px-2">Privacy Policy</a>
-                    <a href="#" class="px-2">Terms & Conditions</a>
-                </p>
+
             </div>
         </div>
     </footer>
