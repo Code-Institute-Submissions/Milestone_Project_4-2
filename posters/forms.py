@@ -2,7 +2,7 @@ from django import forms
 from .models import Poster, Category
 
 
-class PosterForm(forms.ModelForm):
+class BookForm(forms.ModelForm):
 
     class Meta:
         model = Poster

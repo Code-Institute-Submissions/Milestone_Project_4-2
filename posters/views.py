@@ -3,15 +3,15 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.db.models.functions import Lower
-from .models import Poster, Category
-from .forms import PosterForm
+from .models import poster, Category
+from .forms import posterForm
 
 def all_posters(request):
     """ A view to return all posters """
 
-    posters = Poster.objects.all()
+    posters = poster.objects.all()
     query = None
-    categories = ['action', 'romance', 'horror']
+    categories = ['fiction', 'non_fiction', 'cookposters', 'wellness']
     sort = None
     direction = None
 
@@ -39,7 +39,7 @@ def all_posters(request):
         if 'q' in request.GET:
             query = request.GET['q']
             if not query:
-                messages.error(request, "Please enter a keyword or movie to search.")
+                messages.error(request, "Please enter a keyword or ISBN to search.")
                 return redirect(reverse('posters'))
 
             queries = Q(name__icontains=query) | Q(description__icontains=query) | Q(description_full__icontains=query) | Q(isbn10__icontains=query) | Q(isbn13__icontains=query) | Q(category__friendly_name__icontains=query)
@@ -60,7 +60,7 @@ def all_posters(request):
 def poster_detail(request, poster_id):
     """ A view to return the details of the selected poster """
 
-    poster = get_object_or_404(Poster, pk=poster_id)
+    poster = get_object_or_404(poster, pk=poster_id)
 
     if poster.disc_price:
         points = int(poster.disc_price * 100)
@@ -83,7 +83,7 @@ def add_poster(request):
         return redirect(reverse('home'))
 
     if request.method == 'POST':
-        form = PosterForm(request.POST, request.FILES)
+        form = posterForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, 'Successfully added poster!')
@@ -91,7 +91,7 @@ def add_poster(request):
         else:
             messages.error(request, 'Failed to add product. Please ensure the form is valid.')
     else:
-        form = PosterForm()
+        form = posterForm()
         
     template = 'posters/add_poster.html'
     context = {
@@ -108,9 +108,9 @@ def edit_poster(request, poster_id):
         messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
 
-    poster = get_object_or_404(Poster, pk=poster_id)
+    poster = get_object_or_404(poster, pk=poster_id)
     if request.method == 'POST':
-        form = PosterForm(request.POST, request.FILES, instance=poster)
+        form = posterForm(request.POST, request.FILES, instance=poster)
         if form.is_valid():
             form.save()
             messages.success(request, 'Successfully updated poster!')
@@ -118,7 +118,7 @@ def edit_poster(request, poster_id):
         else:
             messages.error(request, 'Failed to update poster. Please ensure the form is valid.')
     else:
-        form = PosterForm(instance=poster)
+        form = posterForm(instance=poster)
         messages.info(request, f'You are editing {poster.name}')
 
     template = 'posters/edit_poster.html'
@@ -137,7 +137,7 @@ def delete_poster(request, poster_id):
         messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
 
-    poster = get_object_or_404(Poster, pk=poster_id)
+    poster = get_object_or_404(poster, pk=poster_id)
     poster.delete()
-    messages.success(request, 'Poster deleted!')
+    messages.success(request, 'poster deleted!')
     return redirect(reverse('posters'))

@@ -32,6 +32,8 @@
                                 </td>
                                 <td class="py-3">
                                     <p class="my-0"><strong><a href="{% url 'poster_detail' item.poster.id %}">{{ item.poster.name }}</a></strong></p>
+                                    <p class="my-0 small text-muted">ISBN-10: {{ item.poster.isbn10 }}</p>
+                                    <p class="my-0 small text-muted">ISBN-13: {{ item.poster.isbn13 }}</p>
                                 </td>
                                 <td class="py-3">
                                     {% if item.poster.disc_price %}
@@ -60,7 +62,13 @@
                         <tr>
                             <td colspan="5" class="pt-5 text-right">
                                 <h6><strong>Bag Total: ${{ total|floatformat:2 }}</strong></h6>
-
+                                <h6>Shipping: ${{ shipping|floatformat:2 }}</h6>
+                                <h4 class="mt-4"><strong>Grand Total: ${{ grand_total|floatformat:2 }}</strong></h4>
+                                {% if free_ship_rem > 0 %}
+                                    <p class="mb-1 text-danger">
+                                        You could get free delivery by spending just <strong>${{ free_ship_rem }}</strong> more!
+                                    </p>
+                                {% endif %}
                             </td>
                         </tr>
                         <tr>
