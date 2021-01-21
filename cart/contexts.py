@@ -1,7 +1,7 @@
 from decimal import Decimal
 from django.conf import settings
 from django.shortcuts import get_object_or_404
-from posters.models import poster
+from posters.models import Poster
 
 def cart_contents(request):
 
@@ -14,7 +14,7 @@ def cart_contents(request):
 
     for item_id, quantity in cart.items():
         subtotal = 0
-        poster = get_object_or_404(poster, pk=item_id)
+        poster = get_object_or_404(Poster, pk=item_id)
         if poster.disc_price:
             if poster.disc_price != 0:
                 subtotal = quantity * poster.disc_price

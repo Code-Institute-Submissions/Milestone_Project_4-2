@@ -31,7 +31,7 @@
     {% block extra_js %}
     {% endblock %}
 
-    <title>{% block pre_title %}{% endblock %} Every Movie Poster {% block post_title %}{% endblock %}</title>
+    <title>{% block pre_title %}{% endblock %} Milton Posterstore {% block post_title %}{% endblock %}</title>
   </head>
   <body>
     <header class="container-fluid fixed-top">
@@ -39,13 +39,13 @@
         <div id="topnav" class="row bg-white pt-lg-2 d-none d-lg-flex">
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
                 <a href="{% url 'home' %}" class="nav-link main-logo-link">
-                    <h2 class="logo-font text-black my-0">Every Movie Poster</h2>
+                    <h2 class="logo-font text-black my-0">Milton<strong>Posterstore</strong></h2>
                 </a>
             </div>
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
                 <form method="GET" action="{% url 'posters' %}">
                     <div class="input-group w-100">
-                        <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search for a poster">
+                        <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search for a Poster">
                         <div class="input-group-append">
                             <button class="form-control btn btn-black border border-black rounded-0" type="submit">
                                 <span class="icon">
@@ -66,10 +66,11 @@
                             </div>
                         </a>
                         <div class="dropdown-menu border-0" aria-labelledby="poster-options">
-                            <a href="{% url 'posters' %}?category=action,horror,romance" class="dropdown-item">All posters</a>
-                            <a href="{% url 'posters' %}?category=action" class="dropdown-item">Action</a>
-                            <a href="{% url 'posters' %}?category=horror" class="dropdown-item">Horror</a>
-                            <a href="{% url 'posters' %}?category=romance" class="dropdown-item">Romance</a>
+                            <a href="{% url 'posters' %}?category=fiction,non_fiction,cookposters,wellness" class="dropdown-item">All Posters</a>
+                            <a href="{% url 'posters' %}?category=fiction" class="dropdown-item">Fiction</a>
+                            <a href="{% url 'posters' %}?category=non_fiction" class="dropdown-item">Non Fiction</a>
+                            <a href="{% url 'posters' %}?category=cookposters" class="dropdown-item">Cookposters</a>
+                            <a href="{% url 'posters' %}?category=wellness" class="dropdown-item">Wellness</a>
                         </div>
                     </li>
                     <li class="list-inline-item">
@@ -107,7 +108,7 @@
                                 </div>
                             </a>
                             <div class="dropdown-menu border-0" aria-labelledby="management-options">
-                                <a href="{% url 'add_poster' %}" class="dropdown-item">Add poster</a>
+                                <a href="{% url 'add_poster' %}" class="dropdown-item">Add Poster</a>
                                 <a href="{% url 'add_poster' %}" class="dropdown-item">Add Blog</a>
                                 <a href="{% url 'admin:index' %}" class="dropdown-item">Admin</a>
                             </div>
@@ -123,14 +124,15 @@
                     <a class="text-black nav-link d-block d-lg-none" href="#" id="poster-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="text-center">
                             <div><i class="fas fa-user fa-lg"></i></div>
-                            <p class="my-0">posters</p>
+                            <p class="my-0">Posters</p>
                         </div>
                     </a>
                     <div class="dropdown-menu border-0" aria-labelledby="poster-options">
-                        <a href="{% url 'posters' %}?category=action,horror,romance'" class="dropdown-item">All posters</a>
-                        <a href="{% url 'posters' %}?category=action" class="dropdown-item">Action</a>
-                        <a href="{% url 'posters' %}?category=horror" class="dropdown-item">Horror</a>
-                        <a href="{% url 'posters' %}?category=romance" class="dropdown-item">Romance</a>
+                        <a href="{% url 'posters' %}?category=fiction,non_fiction,cookposters,wellness'" class="dropdown-item">All Posters</a>
+                        <a href="{% url 'posters' %}?category=fiction" class="dropdown-item">Fiction</a>
+                        <a href="{% url 'posters' %}?category=non_fiction" class="dropdown-item">Non Fiction</a>
+                        <a href="{% url 'posters' %}?category=cookposters" class="dropdown-item">Cookposters</a>
+                        <a href="{% url 'posters' %}?category=wellness" class="dropdown-item">Wellness</a>
                     </div>
                 </li>
                 <li class="list-inline-item">
@@ -151,7 +153,7 @@
                     <div class="dropdown-menu border-0 w-100 p-3 rounded-0 my-0" aria-labelledby="mobile-search">
                         <form class="form" method="GET" action="{% url 'posters' %}">
                             <div class="input-group w-100">
-                                <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search for a poster">
+                                <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search for a Poster">
                                 <div class="input-group-append">
                                     <button class="form-control form-control btn btn-black border border-black rounded-0" type="submit">
                                         <span class="icon">
@@ -204,7 +206,7 @@
                             </div>
                         </a>
                         <div class="dropdown-menu border-0" aria-labelledby="management-options">
-                            <a href="{% url 'add_poster' %}" class="dropdown-item">Add poster</a>
+                            <a href="{% url 'add_poster' %}" class="dropdown-item">Add Poster</a>
                             <a href="{% url 'add_poster' %}" class="dropdown-item">Add Blog</a>
                             <a href="{% url 'admin:index' %}" class="dropdown-item">Admin</a>
                         </div>
@@ -299,7 +301,7 @@
                 </p>
             </div>
             <div class="col-lg-4 my-auto text-center">
-                <p>&copy; Every Movie Poster - All Rights Reserved</p>
+                <p>&copy; 2020 Milton Posterstore - All Rights Reserved</p>
             </div>
             <div class="col-lg-4 my-auto text-right">
                 <p class="pr-3">

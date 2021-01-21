@@ -10,20 +10,22 @@ class UserProfileForm(forms.ModelForm):
                     'total_savings',)
 
     def __init__(self, *args, **kwargs):
-       
+        """
+        Add placeholders and classes, remove auto-generated labels and set autofocus on first field
+        """
         super().__init__(*args, **kwargs)
         placeholders = {
-            'phone_number': 'Phone Number',
-            'zip_or_post': 'Postal Code',
-            'town_or_city': 'Town or City',
-            'street_address1': 'Street Address 1',
-            'street_address2': 'Street Address 2',
-            'county': 'County, State or Locality',
+            'default_phone_number': 'Phone Number',
+            'default_zip_or_post': 'Postal Code',
+            'default_town_or_city': 'Town or City',
+            'default_street_address1': 'Street Address 1',
+            'default_street_address2': 'Street Address 2',
+            'default_county': 'County, State or Locality',
         }
 
-        self.fields['phone_number'].widget.attrs['autofocus'] = True
+        self.fields['default_phone_number'].widget.attrs['autofocus'] = True
         for field in self.fields:
-            if field != 'country':
+            if field != 'default_country':
                 if self.fields[field].required:
                     placeholder = f'{placeholders[field]} *'
                 else:

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse, HttpResponse, get_object_or_404
 from django.contrib import messages
-from posters.models import poster
+from posters.models import Poster
 
 
 def view_cart(request):
@@ -11,7 +11,7 @@ def view_cart(request):
 def add_to_cart(request, item_id):
     """ A view to allow you to add to cart """
 
-    poster = get_object_or_404(poster, pk=item_id)
+    poster = get_object_or_404(Poster, pk=item_id)
     quantity = int(request.POST.get('quantity'))
     redirect_url = request.POST.get('redirect_url')
     cart = request.session.get('cart', {})
@@ -31,7 +31,7 @@ def add_to_cart(request, item_id):
 def adjust_cart(request, item_id):
     """ A view to edit the quantity in the cart """
 
-    poster = get_object_or_404(poster, pk=item_id)
+    poster = get_object_or_404(Poster, pk=item_id)
     quantity = int(request.POST.get('quantity'))
     cart = request.session.get('cart', {})
 
@@ -51,7 +51,7 @@ def adjust_cart(request, item_id):
 def remove_from_cart(request, item_id):
     """ A view to delete from the cart """
     try:
-        poster = get_object_or_404(poster, pk=item_id)
+        poster = get_object_or_404(Poster, pk=item_id)
         cart = request.session.get('cart', {})
         cart.pop(item_id)
         messages.success(request,
