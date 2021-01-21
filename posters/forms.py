@@ -2,15 +2,15 @@ from django import forms
 from .models import Poster, Category
 
 
-class PosterForm(forms.ModelForm):
+class BookForm(forms.ModelForm):
 
     class Meta:
-        model = Poster
+        model = Book
         fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        category = Category.objects.all()
+        categories = Category.objects.all()
         friendly_names = [(c.id, c.get_friendly_name()) for c in categories]
 
         self.fields['category'].choices = friendly_names
