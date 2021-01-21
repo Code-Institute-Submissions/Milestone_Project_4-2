@@ -51,7 +51,6 @@ def cart_contents(request):
         'free_ship_remain': free_ship_remain,
         'free_ship_min': settings.FREE_SHIP_MIN,
         'savings_total': savings_total,
-        'total': total,
         'grand_total': grand_total,
         'savings_total': savings_total,
     }
