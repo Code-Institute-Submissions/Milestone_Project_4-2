@@ -11,7 +11,7 @@ def all_posters(request):
 
     posters = Poster.objects.all()
     query = None
-    categories = ['fiction', 'non_fiction', 'cookposters', 'wellness']
+    categories = ['action', 'horror', 'romance']
     sort = None
     direction = None
 
