@@ -1,4 +1,5 @@
 .allauth-form-content p {
+    padding: 30px;
     margin-top: 1.8rem; /* mt-4 */
     color: #528fb3; /* text-secondary */
 }
