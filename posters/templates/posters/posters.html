@@ -3,7 +3,7 @@
 
 
 {% block page_header %}
-    <div class="container-fluid">
+    <div class="container-fluid header-container">
     </div>
 
 {% endblock %}
@@ -17,21 +17,22 @@
             {% if current_categories == Null %}
                 {% for c in current_categories %}
                     <a class="text-decoration-none" href="{% url 'posters' %}?category={{ c.name }}">
-                        <span class="p-2 mt-2 badge rounded-0 border border-dark">{{ c.friendly_name }}</span>
+                        <span class="p-2 mt-2 badge badge-white rounded-0 border border-dark">{{ c.friendly_name }}</span>
                     </a>
                 {% endfor %}
             {% else %}
-                <a class="text-decoration-none" href="{% url 'posters' %}?category=action">
-                    <span class="p-2 mt-2 badge rounded-0 border border-dark">Action</span>
+                <a class="text-decoration-none" href="{% url 'posters' %}?category=fiction">
+                    <span class="p-2 mt-2 badge badge-white rounded-0 border border-dark">Fiction</span>
                 </a>
-                <a class="text-decoration-none" href="{% url 'posters' %}?category=romance">
-                    <span class="p-2 mt-2 badge rounded-0 border border-dark">Romance</span>
+                <a class="text-decoration-none" href="{% url 'posters' %}?category=non_fiction">
+                    <span class="p-2 mt-2 badge badge-white rounded-0 border border-dark">Non Fiction</span>
                 </a>
-                <a class="text-decoration-none" href="{% url 'posters' %}?category=horror">
-                    <span class="p-2 mt-2 badge rounded-0 border border-dark">Horror</span>
+                <a class="text-decoration-none" href="{% url 'posters' %}?category=cookposters">
+                    <span class="p-2 mt-2 badge badge-white rounded-0 border border-dark">Cookposters</span>
                 </a>
-                
-
+                <a class="text-decoration-none" href="{% url 'posters' %}?category=wellness">
+                    <span class="p-2 mt-2 badge badge-white rounded-0 border border-dark">Wellness</span>
+                </a>
             {% endif %}
             <hr class="w-50 mb-1">
         </div>
@@ -43,6 +44,8 @@
                     <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
                     <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price (low to high)</option>
                     <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (high to low)</option>
+                    <option value="rating_asc" {% if current_sorting == 'rating_asc' %}selected{% endif %}>Rating (low to high)</option>
+                    <option value="rating_desc" {% if current_sorting == 'rating_desc' %}selected{% endif %}>Rating (high to low)</option>
                     <option value="name_asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>Name (A-Z)</option>
                     <option value="name_desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>Name (Z-A)</option>
                     <option value="category_asc" {% if current_sorting == 'category_asc' %}selected{% endif %}>Category (A-Z)</option>
@@ -61,15 +64,71 @@
     </div>
     <div class="row">
         {% for poster in posters %}
-        <div class="col-12 col-md-4 col-lg-3 mt-2">
-            
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 mt-2">
+            <div class="card h-100 border-0">
+                {% if poster.image %}
+                <a href="{% url 'poster_detail' poster.id %}">
+                    <img class="card-img-top img-fluid w-100" src="{{ poster.image.url }}" alt="{{ poster.name }}">
+                </a>
+                {% else %}
+                <a href="{% url 'poster_detail' poster.id %}">
+                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ poster.name }}">
+                </a>
+                {% endif %}
+                <div class="card-body d-flex flex-column pb-0">
+                    <div class="mt-auto">
+                        <a href="{% url 'poster_detail' poster.id %}">
+                            <p class="mb-0 text=uppercase text-center font-weight-bold">{{ poster.name }}</p>
+                        </a>
+                        <a href="">
+                        <p class="mb-0 text-center">{{ poster.author }}</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-footer bg-white pt-0 border-0 text-left">
+                    <div class="row">
+                        <div class="col">
+                            {% if poster.disc_price %}
+                            <p class="lead mb-0 text-center">
+                                <span class="text-danger font-weight-bold">${{ poster.disc_price }}</span>
+                                <s>${{ poster.price }}</s>
+                            </p>
+                            {% else %}
+                            <p class="lead mb-0 text-center font-weight-bold">${{ poster.price }}</p>
+                            {% endif %}
+
+                            <p class="text-center my-2">
+                                <form class="form my-2" action="{% url 'add_to_cart' poster.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <input name="quantity" id="quantity" value="1" type="hidden"></input>
+                                    <input type="submit" class="btn btn-dark border-dark btn-block p-3" value="Add to Cart"></input>
+                                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                </form>
+                                <br>
+                                {% if request.user.is_superuser %}
+                                <small class="ml-3">
+                                    <a href="{% url 'edit_poster' poster.id %}"">Edit</a> | 
+                                    <a class="text-danger" href="{% url 'delete_poster' poster.id %}">Delete</a>
+                                </small>
+                                {% endif %}
+                            </p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         {% endfor %}
     </div>
 </div>
-
+<div class="topscroll shadow-sm rounded-0 border border-black">
+        <a id="topscroll" class="d-flex h-100">
+            <i class="fas fa-arrow-up mx-auto my-auto"></i>
+        </a>	
+    </div>
 {% endblock %}
 
 {% block extra_postload_js %}
-
+<script type="text/javascript" src="{% static 'posters/js/scroll_to_top.js' %}"></script>
+<script type="text/javascript" src="{% static 'posters/js/sort_selector.js' %}"></script>
 {% endblock %}
