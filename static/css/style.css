@@ -13,6 +13,8 @@ p {
 
 .home-banner-1 {
     background-image: url('/media/collagecopy.jpg');
+    margin-top: 50px;
+    padding-top: 50px;
     /*background-position-y: bottom;
     background-size: cover;
     height: 500px;
@@ -22,6 +24,7 @@ p {
 .home-banner-1-inner {
     text-align: center;
     position: absolute;
+    
     top: 50%;
     left: 50%;
     /*transform: translate(-50%, -50%);*/
