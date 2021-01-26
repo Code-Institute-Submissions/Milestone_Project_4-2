@@ -50,3 +50,90 @@
 .allauth-form-content a {
 	color: #b85717; /* text-info */
 }
+
+
+body {
+    height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+}
+
+p {
+    font-family: 'Lora', serif;
+}
+
+.home-banner-1 {
+    background-image: url('/media/collage-copy.jpg');
+    background-position-y: bottom;
+    background-size: cover;
+    height: 500px;
+    position: relative;
+}
+
+.home-banner-1-inner {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+
+.message-container {
+    position: fixed;
+    top: 72px;
+    right: 15px;
+    z-index: 99999999999;
+}
+
+.custom-toast {
+    overflow: visible;
+}
+
+.toast-capper {
+    height: 2px;
+}
+
+.topscroll {
+    height: 50px;
+    width: 50px;
+    position: fixed;
+    bottom: 120px;
+    right: 10px;
+    z-index: 999;
+}
+
+#topscroll {
+    cursor: pointer;
+}
+
+footer {
+    margin-top: 121px;
+}
+
+#footer-offset {
+    margin-top: 121px;
+}
+
+@media (min-width: 992px) {
+    .header-container {
+        margin-top: 137px;
+    }
+
+    .home-banner-1 {
+        height: calc(100vh - 258px);
+    }
+}
+
+@media (max-width: 991px) {
+    .header-container {
+        margin-top: 120px;
+    }
+
+    .home-banner-1 {
+        height: calc(100vh - 141px);
+    }
+}
+
