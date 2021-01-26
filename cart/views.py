@@ -8,6 +8,7 @@ def view_cart(request):
 
     return render(request, 'cart/cart.html')
 
+
 def add_to_cart(request, item_id):
     """ A view to allow you to add to cart """
 
@@ -28,6 +29,7 @@ def add_to_cart(request, item_id):
     request.session['cart'] = cart
     return redirect(redirect_url)
     
+
 def adjust_cart(request, item_id):
     """ A view to edit the quantity in the cart """
 
@@ -47,6 +49,7 @@ def adjust_cart(request, item_id):
 
     request.session['cart'] = cart
     return redirect(reverse('view_cart'))
+
 
 def remove_from_cart(request, item_id):
     """ A view to delete from the cart """
