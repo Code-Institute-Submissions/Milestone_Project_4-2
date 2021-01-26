@@ -21,17 +21,14 @@
                     </a>
                 {% endfor %}
             {% else %}
-                <a class="text-decoration-none" href="{% url 'posters' %}?category=fiction">
-                    <span class="p-2 mt-2 badge badge-white rounded-0 border border-dark">Fiction</span>
+                <a class="text-decoration-none" href="{% url 'posters' %}?category=action">
+                    <span class="p-2 mt-2 badge badge-white rounded-0 border border-dark">Action</span>
                 </a>
-                <a class="text-decoration-none" href="{% url 'posters' %}?category=non_fiction">
-                    <span class="p-2 mt-2 badge badge-white rounded-0 border border-dark">Non Fiction</span>
+                <a class="text-decoration-none" href="{% url 'posters' %}?category=romance">
+                    <span class="p-2 mt-2 badge badge-white rounded-0 border border-dark">Romance</span>
                 </a>
-                <a class="text-decoration-none" href="{% url 'posters' %}?category=cookposters">
-                    <span class="p-2 mt-2 badge badge-white rounded-0 border border-dark">Cookposters</span>
-                </a>
-                <a class="text-decoration-none" href="{% url 'posters' %}?category=wellness">
-                    <span class="p-2 mt-2 badge badge-white rounded-0 border border-dark">Wellness</span>
+                <a class="text-decoration-none" href="{% url 'posters' %}?category=Horror">
+                    <span class="p-2 mt-2 badge badge-white rounded-0 border border-dark">Horror</span>
                 </a>
             {% endif %}
             <hr class="w-50 mb-1">

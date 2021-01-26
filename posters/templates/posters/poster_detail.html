@@ -18,7 +18,87 @@
                 <img class=" img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ poster.name }}">
             {% endif %}
         </div>
-        
+        <div class="col-12 col-md-7 mt-3 pt-5 pb-3">
+            <h3 class="mb-3 text=uppercase font-weight-bold text-left">{{ poster.name }}</h3>
+            <p class="mb-0 text-left">by <strong>{{ poster.author }}</strong></p>
+            <p class="mb-3 text-left">
+            
+                {{poster.published}} | 
+
+                {% if poster.rating == 5 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                {% elif poster.rating == 4.5 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half"></i>
+                {% elif poster.rating == 4 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                {% elif poster.rating == 3.5 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half"></i>
+                {% elif poster.rating == 3 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                {% elif poster.rating == 2.5 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half"></i>
+                {% elif poster.rating == 2 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                {% elif poster.rating == 1.5 %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half"></i>
+                {% elif poster.rating == 1 %}
+                <i class="fas fa-star"></i>
+                {% elif poster.rating == 0.5 %}
+                <i class="fas fa-star-half"></i>
+                {% endif %}
+            </p>
+
+
+
+            {% if poster.disc_price %}
+            <p class="lead my-2 text-left">
+                <span class="text-danger font-weight-bold">${{ poster.disc_price }}</span>
+                <s>${{ poster.price }}</s>
+            </p>
+            {% else %}
+            <p class="lead my-2 text-left font-weight-bold">${{ poster.price }}</p>
+            {% endif %}
+
+            <p>Earn {{points}} Milton Posterstore Points.</p>
+            <p>1% of the sale of this poster will go towards funding education in high-need communities.</p>
+            <p class="btn btn-primary border-none btn-block disabled">
+                <i class="fas fa-shipping-fast p-2"></i> Ships Free on Orders Over ${{ free_ship_min }}
+            </p>
+            <form class="form my-2" action="{% url 'add_to_cart' poster.id %}" method="POST">
+                {% csrf_token %}
+                <select name="quantity" class="btn-block disabled p-2 quantity" id="quantity">
+                </select>
+                <input type="submit" class="btn btn-dark border-dark btn-block p-3" value="Add to Cart"></input>
+                <input type="hidden" name="redirect_url" value="{{ request.path }}">
+            </form>
+            <br>
+            {% if request.user.is_superuser %}
+            <small class="ml-3">
+                <a href="{% url 'edit_poster' poster.id %}">Edit</a> | 
+                <a class="text-danger" href="{% url 'delete_poster' poster.id %}">Delete</a>
+            </small>
+            {% endif %}
+        </div>
     </div>
     <div class="row">
         <div class="col-12 px-5 ">
@@ -39,15 +119,26 @@
                     <div class="card-header" id="headingOne">
                     <h2 class="mb-0">
                         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Details
+                        Details & Specifications
                         </button>
                     </h2>
                     </div>
 
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                     <div class="card-body">
-                        <p>Title: {{poster.name}}</p>           
+                        <p>Title: {{poster.name}}</p>
+                        <p>Author: {{poster.author}}</p>
+                        <p>Pages: {{poster.pages}}</p>
                         <p>Genre: {{poster.category.get_friendly_name}}</p>
+                        <p>Published: {{poster.published}}</p>
+                        <p>Publisher: {{poster.publisher}}</p>
+                        <p>Language: {{poster.language}}</p>
+
+                        <p>The following ISBNs are associated with this title:</p>
+                        
+                        <p>ISBN - 10: {{poster.isbn10}}</p>
+                        <p>ISBN - 13: {{poster.isbn13}}</p>
+                        
                     </div>
                     </div>
                 </div>
