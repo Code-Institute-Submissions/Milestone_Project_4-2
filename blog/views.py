@@ -11,7 +11,7 @@ def all_posts(request):
 
     posts = Post.objects.all()
     query = None
-    categories = ['new_releases', 'old_is_gold', 'news']
+    categories = ['whats_new', 'classics', 'news']
     sort = None
     direction = None
 
@@ -73,7 +73,7 @@ def add_post(request):
     """ Add a post to the blog """
 
     if not request.user.is_superuser:
-        messages.error(request, 'Sorry, only store owners can do that.')
+        messages.error(request, 'Sorry, only store admin can do that.')
         return redirect(reverse('home'))
 
     if request.method == 'POST':
