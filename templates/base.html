@@ -31,7 +31,7 @@
     {% block extra_js %}
     {% endblock %}
 
-    <title>{% block pre_title %}{% endblock %} Every Movie Posterstore {% block post_title %}{% endblock %}</title>
+    <title>{% block pre_title %}{% endblock %} Movie Poster Store {% block post_title %}{% endblock %}</title>
   </head>
   <body>
     <header class="container-fluid fixed-top">
@@ -39,7 +39,7 @@
         <div id="topnav" class="row bg-white pt-lg-2 d-none d-lg-flex">
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
                 <a href="{% url 'home' %}" class="nav-link main-logo-link">
-                    <h2 class="logo-font text-black my-0">Every Movie<strong> Posterstore</strong></h2>
+                    <h2 class="logo-font text-black my-0">Movie Poster Store</h2>
                 </a>
             </div>
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
@@ -66,13 +66,21 @@
                             </div>
                         </a>
                         <div class="dropdown-menu border-0" aria-labelledby="poster-options">
-                            <a href="{% url 'posters' %}?category=action,horror,romance" class="dropdown-item">All Posters</a>
+                            <a href="{% url 'posters' %}?category=fiction,non_fiction,cookposters,wellness" class="dropdown-item">All Posters</a>
                             <a href="{% url 'posters' %}?category=action" class="dropdown-item">Action</a>
-                            <a href="{% url 'posters' %}?category=horror" class="dropdown-item">Horror</a>
                             <a href="{% url 'posters' %}?category=romance" class="dropdown-item">Romance</a>
+                            <a href="{% url 'posters' %}?category=horror" class="dropdown-item">Horror</a>
+
                         </div>
                     </li>
-
+                    <li class="list-inline-item">
+                        <a class="text-black nav-link " href="{% url 'blog' %}">
+                            <div class="text-center">
+                                <div><i class="fas fa-scroll fa-lg p-3 border border-dark rounded-circle"></i></div>
+                                <p class="my-0">Blog</p>
+                            </div>
+                        </a>
+                    </li>
                     <li class="list-inline-item dropdown">
                         <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="text-center">
@@ -120,10 +128,11 @@
                         </div>
                     </a>
                     <div class="dropdown-menu border-0" aria-labelledby="poster-options">
-                        <a href="{% url 'posters' %}?category=action,horror,romance" class="dropdown-item">All Posters</a>
+                        <a href="{% url 'posters' %}?category=action,romance,horror'" class="dropdown-item">All Posters</a>
                         <a href="{% url 'posters' %}?category=action" class="dropdown-item">Action</a>
-                        <a href="{% url 'posters' %}?category=horror" class="dropdown-item">Horror</a>
                         <a href="{% url 'posters' %}?category=romance" class="dropdown-item">Romance</a>
+                        <a href="{% url 'posters' %}?category=horror" class="dropdown-item">Horror</a>
+
                     </div>
                 </li>
                 <li class="list-inline-item">
@@ -283,7 +292,7 @@
         <div id="bottom-footer" class="row bg-white border-top pt-lg-2 d-none d-lg-flex">
             
             <div class="col-lg-4 my-auto text-left">
-                <p><strong class="pl-3">Let's Get Social:</strong>
+                <p><strong class="pl-3">Social Media:</strong>
                     <a href="#" class="px-2 fa fa-faceposter"></a>
                     <a href="#" class="px-2 fa fa-instagram"></a>
                     <a href="#" class="px-2 fa fa-twitter"></a>
@@ -292,7 +301,7 @@
                 </p>
             </div>
             <div class="col-lg-4 my-auto text-center">
-                <p>&copy; 2020 Every Movie Posterstore - All Rights Reserved</p>
+                <p>&copy; Movie Poster Store - All Rights Reserved</p>
             </div>
             <div class="col-lg-4 my-auto text-right">
                 <p class="pr-3">
