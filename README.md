@@ -34,7 +34,9 @@ All the same CRUD applications also apply to the Blog section where the owner ca
 
 Register: The main navigation bar hosts a profile drop down menu. When no user is logged in, this will show a register button. By following this link, the customer will be brought to a registration form. Completing this form, a user account and a user profile will be generated. The customer will also be sent an email confirmation that is required to fully authenticate the account creation.
 
+Login: The main navigation bar also hosts a login button in the profile drop down menu when no user is logged in. The link leads to a standard login page where the user can use either their username or email address to login alongside their password.
 
+Purchase: The customer can add products on the cart. Once ready to make the purchase, the checkout button is always on display in the footer. This payment can be made as a registered user or as a guest. If the customer is logged and has made a purchase in the past, the form will be populated with the default shipping and contact information. The customer can also enter different information and then choose whether or not to update their user profile with the information in the form. A stripe credit card payment section at the bottom allows customer to pay with a various cards.
 
 
 ## Features
